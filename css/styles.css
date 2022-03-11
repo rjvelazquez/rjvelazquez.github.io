@@ -11507,3 +11507,19 @@ html {
 .copyright {
   background-color: #1a252f;
 }
+
+#texto:before{
+  content: "Roberto Velazquez";
+}
+
+@media (max-width:900px) and (min-width:450px) {
+    #texto:before {
+        content: "Roberto Velazquez";
+    }
+}
+
+@media (max-width:400px){
+    #texto:before {
+        content: "Roberto V.";
+    }
+}
