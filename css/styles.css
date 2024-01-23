@@ -11523,3 +11523,23 @@ html {
         content: "Roberto V.";
     }
 }
+.technology-banner {
+  background-color: #f8f9fa; /* Cambie el color de fondo según prefiera */
+  padding: 20px 0;
+}
+
+.technology-banner h2 {
+  margin-bottom: 20px;
+  color: #333; /* Color del texto */
+}
+
+.technology-logos img {
+  margin: 0 10px;
+  height: 50px; /* Ajuste la altura según sea necesario */
+  opacity: 0.8;
+  transition: opacity 0.3s;
+}
+
+.technology-logos img:hover {
+  opacity: 1;
+}
