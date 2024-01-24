@@ -11,8 +11,8 @@
         <!-- Font Awesome icons (free version)-->
         <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
         <!-- Google fonts-->
-        <!--  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
-        <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" /> -->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
         <!-- Core  theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
 
@@ -268,7 +268,102 @@
                     <div class="divider-custom-line"></div>
                 </div>
                 <!-- Contact Section Form-->
-               
+                    <!--Section description-->
+                    <p class="text-center w-responsive mx-auto mb-5">¿Tiene usted alguna pregunta? Por favor no dude en contactarnos directamente.</p>
+
+                    <div class="row">
+
+                        <!--Grid column-->
+                        <div class="col-md-9 mb-md-0 mb-5">
+                            <form id="contact-form" name="contact-form" action="mail.php" method="POST">
+
+                                <!--Grid row-->
+                                <div class="row">
+
+                                    <!--Grid column-->
+                                    <div class="col-md-6">
+                                        <div class="md-form mb-0">
+                                            <input type="text" id="name" name="name" class="form-control">
+                                            <label for="name" class="">Nombre</label>
+                                        </div>
+                                    </div>
+                                    <!--Grid column-->
+
+                                    <!--Grid column-->
+                                    <div class="col-md-6">
+                                        <div class="md-form mb-0">
+                                            <input type="text" id="email" name="email" class="form-control">
+                                            <label for="email" class="">Email</label>
+                                        </div>
+                                    </div>
+                                    <!--Grid column-->
+
+                                </div>
+                                <!--Grid row-->
+
+                                <!--Grid row-->
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="md-form mb-0">
+                                            <input type="text" id="subject" name="subject" class="form-control">
+                                            <label for="subject" class="">Asunto</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Grid row-->
+
+                                <!--Grid row-->
+                                <div class="row">
+
+                                    <!--Grid column-->
+                                    <div class="col-md-12">
+
+                                        <div class="md-form">
+                                            <textarea type="text" id="message" name="message" rows="2" class="form-control md-textarea"></textarea>
+                                            <label for="message">Mensaje</label>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <!--Grid row-->
+
+                            </form>
+
+                            <div class="text-center text-md-left">
+                                <a class="btn btn-primary" onclick="document.getElementById('contact-form').submit();">Enviar</a>
+                            </div>
+                            <div class="status"></div>
+                        </div>
+                        <!--Grid column-->
+
+                        <!--Grid column-->
+                        <div class="col-md-3 text-center">
+                            <ul class="list-unstyled mb-0">
+                                <li><i class="fas fa-map-marker-alt fa-2x"></i>
+                                    <p>Cojedes, Venezuela</p>
+                                </li>
+
+                                <li><i class="fas fa-mobile-alt mt-4 fa-2x"></i>
+                                    <p><a href="tel:+584129354940" title="Llamar a +58 412 935 4940"> 
+                                        +58 412 935 4940</a></p>
+                                </li>
+
+                                <li><i class="fab fa-whatsapp mt-4 fa-2x"></i>
+                                    <p><a href="https://api.whatsapp.com/send/?phone=584129354940&amp;text=Hola%21+Estoy+interesado+en+tus+servicios+de+desarrollo+web+y+gestión+de+proyectos.+%C2%BFPuedes+darme+m%C3%A1s+informaci%C3%B3n%3F" target="_blank">Contáctame via WhatsApp</a>
+                                    </p>
+                                </li>
+                                <li><i class="fas fa-envelope mt-4 fa-2x"></i>
+                                    <p><a href="mailto:rjvelazquez96@gmail.com" title="Correo a rjvelazquez96@gmail.comm" > 
+                                        rjvelazquez96@gmail.com</a></p>
+                                </li>
+                            </ul>
+                        </div>
+                        <!--Grid column-->
+
+                    </div>
+
+                
+                <!--Section: Contact v.2-->
                 <!--Contact Section Form-->
             </div>
         </section>
@@ -276,15 +371,7 @@
         <footer class="footer text-center">
             <div class="container">
                 <div class="row">
-                    <!-- Footer Location-->
-                    <div class="col-lg-4 mb-5 mb-lg-0">
-                        <h4 class="text-uppercase mb-4">Ubicación</h4>
-                        <p class="lead mb-0">
-                            Valencia, Carabobo
-                            <br />
-                            Venezuela
-                        </p>
-                    </div>
+                    
                     <!-- Footer Social Icons-->
                     <div class="col-lg-4 mb-5 mb-lg-0">
                         <h4 class="text-uppercase mb-4">Redes Sociales</h4>
@@ -304,7 +391,7 @@
         </footer>
         <!-- Copyright Section-->
         <div class="copyright py-4 text-center text-white">
-            <div class="container"><small>Copyright &copy; Roberto Velazquez 2022</small></div>
+            <div class="container"><small>Copyright &copy; Roberto Velazquez 2024</small></div>
         </div>
         <!-- Portfolio Modals-->
         <!-- Portfolio Modal 1-->
