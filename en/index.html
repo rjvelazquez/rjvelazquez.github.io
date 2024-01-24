@@ -903,25 +903,32 @@
        
         <script type="text/javascript">
            function changeLanguage(lang) {
+                let newUrl = window.location.href.split('?')[0]; // Elimina los parámetros actuales de la URL
                 if (lang === 'es') {
-                    // Redirige a la URL principal para español
-                    window.location.href = '/';
-                    // Cierra el modal si está abierto
-                    $('#languageModal').modal('hide');
-                } else if (lang === 'en') {
-                    // Asumiendo que tienes una URL específica para inglés
-                    window.location.href = '/en';
+                    newUrl += '../?langChanged=true';
+                    window.location.href = newUrl;
                 } else if (lang === 'ar') {
-                    window.location.href = '/ar';
+                    newUrl += '../ar/?langChanged=true';
+                    window.location.href = newUrl;
+                } else if (lang === 'en') {
+                    newUrl += '../en/?langChanged=true';
+                    window.location.href = newUrl;
                 }
             }
 
 
+
             // Opcional: Código para abrir el modal automáticamente al cargar la página
             document.addEventListener("DOMContentLoaded", function() {
-            var languageModal = new bootstrap.Modal(document.getElementById('languageModal'));
-            languageModal.show();
+                const urlParams = new URLSearchParams(window.location.search);
+                const langChanged = urlParams.get('langChanged');
+
+                if (!langChanged) {
+                    var languageModal = new bootstrap.Modal(document.getElementById('languageModal'));
+                    languageModal.show();
+                }
             });
+
 
 
 
