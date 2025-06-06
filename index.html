@@ -3,28 +3,118 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
+        <meta name="description" content="Roberto Velazquez - Desarrollador Full Stack & Help Desk Manager. Especialista en desarrollo web, aplicaciones móviles y gestión de soporte técnico." />
+        <meta name="author" content="Roberto Velazquez" />
         <meta http-equiv="Content-Language" content="es">
+        
+        <!-- PWA -->
+        <link rel="manifest" href="/manifest.json">
+        <meta name="theme-color" content="#1abc9c">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="apple-mobile-web-app-title" content="RJ Velazquez">
+        <link rel="apple-touch-icon" href="assets/icons/icon-192x192.png">
+        
+        <!-- Open Graph / Facebook -->
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://rjvelazquez.github.io/" />
+        <meta property="og:title" content="Roberto Velazquez | DESARROLLADOR FULL STACK & HELP DESK MANAGER" />
+        <meta property="og:description" content="Portafolio profesional de Roberto Velazquez - Desarrollador Full Stack & Help Desk Manager" />
+        <meta property="og:image" content="assets/img/avatar.webp" />
 
-        <title>Roberto Velazquez | DESARROLLADOR FULL STACK & HELP DESK MANAGER</title>
+        <!-- Twitter -->
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content="https://rjvelazquez.github.io/" />
+        <meta property="twitter:title" content="Roberto Velazquez | DESARROLLADOR FULL STACK & HELP DESK MANAGER" />
+        <meta property="twitter:description" content="Portafolio profesional de Roberto Velazquez - Desarrollador Full Stack & Help Desk Manager" />
+        <meta property="twitter:image" content="assets/img/avatar.webp" />
+
+        <title data-translate="meta.title">Roberto Velazquez | DESARROLLADOR FULL STACK & HELP DESK MANAGER</title>
+        
+        <!-- Preload de recursos críticos -->
+        <link rel="preload" href="css/styles.css" as="style" />
+        <link rel="preload" href="assets/img/avatar.webp" as="image" />
+        <link rel="preload" href="https://fonts.googleapis.com/css?family=Montserrat:400,700" as="style" />
+        <link rel="preload" href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" as="style" />
+        
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        
+        <!-- Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-XXXXXXXXXX', {
+                'page_path': window.location.pathname,
+                'send_page_view': true
+            });
+        </script>
+        
         <!-- Font Awesome icons (free version)-->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js" crossorigin="anonymous" defer></script>
         
         <!-- Google fonts-->
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
         <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
-        <!-- Core  theme CSS (includes Bootstrap)-->
+        
+        <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
+        <link href="css/language-selector.css" rel="stylesheet" />
+        <link rel="stylesheet" href="css/status-bar.css">
+        
+        <!-- Firebase y EmailJS -->
         <script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js" defer></script>
+        <script type="module">
+            import { initLanguageSelector } from '/js/languages.js';
+            document.addEventListener('DOMContentLoaded', initLanguageSelector);
+        </script>
         <script type="text/javascript">
             (function() {
                 // https://dashboard.emailjs.com/admin/account
                 emailjs.init('OpfHrTa2vaH1m51hS');
             })();
+        </script>
+        <script>
+            // Registrar Service Worker
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', () => {
+                    navigator.serviceWorker.register('/sw.js')
+                        .then(registration => {
+                            console.log('ServiceWorker registrado exitosamente:', registration.scope);
+                            
+                            // Verificar actualizaciones cada hora
+                            setInterval(() => {
+                                registration.update();
+                            }, 3600000);
+
+                            // Manejar actualizaciones
+                            registration.addEventListener('updatefound', () => {
+                                const newWorker = registration.installing;
+                                console.log('Nueva versión del Service Worker encontrada');
+
+                                newWorker.addEventListener('statechange', () => {
+                                    if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                        // Nueva versión disponible
+                                        if (confirm('Hay una nueva versión disponible. ¿Deseas actualizar?')) {
+                                            window.location.reload();
+                                        }
+                                    }
+                                });
+                            });
+                        })
+                        .catch(error => {
+                            console.error('Error al registrar el ServiceWorker:', error);
+                        });
+
+                    // Manejar actualizaciones cuando el Service Worker cambia
+                    navigator.serviceWorker.addEventListener('controllerchange', () => {
+                        console.log('Nuevo Service Worker activado');
+                    });
+                });
+            }
         </script>
         <style>
             .portfolio-item {
@@ -92,35 +182,68 @@
         </style>
     </head>
     <body id="page-top">
+        <!-- Selector de idioma -->
+        <div class="language-selector">
+            <div class="language-option" data-lang="es">
+                <img src="img/flags/es.svg" alt="Español" class="flag-icon">
+                <span>Español</span>
+            </div>
+            <div class="language-option" data-lang="en">
+                <img src="img/flags/en.svg" alt="English" class="flag-icon">
+                <span>English</span>
+            </div>
+            <div class="language-option" data-lang="ar">
+                <img src="img/flags/ar.svg" alt="العربية" class="flag-icon">
+                <span>العربية</span>
+            </div>
+        </div>
+
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
             <div class="container">
-                <a class="navbar-brand" href="#page-top"><span id="texto"></span></a>
+                <a class="navbar-brand" href="#page-top" data-translate="nav.brand">Roberto Velazquez</a>
                 <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                    Menu
                     <i class="fas fa-bars"></i>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#portfolio">Portafolio</a></li>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#about">Acerca de</a></li>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#contact">Contacto</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#portfolio" data-translate="nav.portfolio">Portafolio</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#about" data-translate="nav.about">Sobre Mí</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#contact" data-translate="nav.contact">Contacto</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
+
+        <!-- Barra de estado -->
+        <div class="status-bar">
+            <div class="status-content">
+                <div class="status-left">
+                    <span class="version">v1.0.0</span>
+                    <span class="year"></span>
+                </div>
+                <div class="language-selector-wrapper">
+                    <select id="language-select" aria-label="Seleccionar idioma">
+                        <option value="es">Español</option>
+                        <option value="en">English</option>
+                        <option value="ar">العربية</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
         <!-- Masthead-->
-        <header class="masthead bg-primary text-white text-center ">
+        <header class="masthead bg-primary text-white text-center" role="banner">
             <div class="container d-flex align-items-center flex-column">
                 <!-- Masthead Avatar Image-->
-                <img class="masthead-avatar mb-5" src="assets/img/avatar.webp" alt="..." style=" border-radius: 50%; 
+                <img class="masthead-avatar mb-5" src="assets/img/avatar.webp" alt="Foto de perfil de Roberto Velazquez" style=" border-radius: 50%; 
                 box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;" />
                 <!-- Masthead Heading-->
                 <h1 class="masthead-heading text-uppercase mb-0">Roberto Velazquez</h1>
                 <!-- Icon Divider-->
-                <div class="divider-custom divider-light">
+                <div class="divider-custom divider-light" role="separator" aria-hidden="true">
                     <div class="divider-custom-line"></div>
-                    <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                    <div class="divider-custom-icon"><i class="fas fa-star" aria-hidden="true"></i></div>
                     <div class="divider-custom-line"></div>
                 </div>
                 <!-- Masthead Subheading-->
@@ -128,55 +251,55 @@
             </div>
         </header>
         <!-- Technology Banner Section -->
-        <section class="technology-banner mt-5" style="box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 0px;">
+        <section class="technology-banner mt-5" style="box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 0px;" aria-label="Tecnologías">
             <div class="container">
                 <div class="row">
                     <div class="col text-center">
-                        <div class="technology-logos">
+                        <div class="technology-logos" role="list" aria-label="Lista de tecnologías">
                              <!-- Lenguajes de Programación -->
-                            <img src="assets/logos/php.svg" class="py-2" alt="PHP" title="PHP" />
-                            <img src="assets/logos/JavaScript.svg" class="py-1"" class="py-1" alt="JavaScript" title="JavaScript" />
-                            <img src="assets/logos/HTML5.png" class="py-1" alt="HTML 5" title="HTML 5" />
-                            <img src="assets/logos/CSS3.png" class="py-1" alt="CSS3" title="CSS3" />
-                            <img src="assets/logos/Python.svg" class="py-1" alt="Python" title="Python" />
-                            <img src="assets/logos/Ruby.svg" class="py-1" alt="Ruby" title="Ruby" />
-                            <img src="assets/logos/Java.svg" class="py-1" alt="Java" title="Java" />
-                            <img src="assets/logos/C-Sharp.svg" class="py-1" alt="C#" title="C#" />
+                            <img src="assets/logos/php.svg" class="py-2" alt="PHP" title="PHP" loading="lazy" />
+                            <img src="assets/logos/JavaScript.svg" class="py-1" alt="JavaScript" title="JavaScript" loading="lazy" />
+                            <img src="assets/logos/HTML5.png" class="py-1" alt="HTML 5" title="HTML 5" loading="lazy" />
+                            <img src="assets/logos/CSS3.png" class="py-1" alt="CSS3" title="CSS3" loading="lazy" />
+                            <img src="assets/logos/Python.svg" class="py-1" alt="Python" title="Python" loading="lazy" />
+                            <img src="assets/logos/Ruby.svg" class="py-1" alt="Ruby" title="Ruby" loading="lazy" />
+                            <img src="assets/logos/Java.svg" class="py-1" alt="Java" title="Java" loading="lazy" />
+                            <img src="assets/logos/C-Sharp.svg" class="py-1" alt="C#" title="C#" loading="lazy" />
                             
                             <!-- Frameworks Front-end -->
-                            <img src="assets/logos/React.svg" class="py-1" alt="React" title="React" />
-                            <img src="assets/logos/Angular.svg" class="py-1" alt="Angular" title="Angular" />
-                            <img src="assets/logos/Bootstrap.svg" class="py-1" alt="Bootstrap" title="Bootstrap" />
+                            <img src="assets/logos/React.svg" class="py-1" alt="React" title="React" loading="lazy" />
+                            <img src="assets/logos/Angular.svg" class="py-1" alt="Angular" title="Angular" loading="lazy" />
+                            <img src="assets/logos/Bootstrap.svg" class="py-1" alt="Bootstrap" title="Bootstrap" loading="lazy" />
 
                             <!-- Frameworks Back-end -->
-                            <img src="assets/logos/Node-JS.svg" class="py-1" alt="Node.js" title="Node.js" />
-                            <img src="assets/logos/Rails-01.svg" class="py-2" alt="Ruby on Rails" title="Ruby on Rails" />
-                            <img src="assets/logos/Laravel-04.svg" class="py-1" alt="Laravel" title="Laravel" />
+                            <img src="assets/logos/Node-JS.svg" class="py-1" alt="Node.js" title="Node.js" loading="lazy" />
+                            <img src="assets/logos/Rails-01.svg" class="py-2" alt="Ruby on Rails" title="Ruby on Rails" loading="lazy" />
+                            <img src="assets/logos/Laravel-04.svg" class="py-1" alt="Laravel" title="Laravel" loading="lazy" />
 
                             <!-- Bases de Datos -->
-                            <img src="assets/logos/MySQL-01.svg" class="" alt="MySQL" title="MySQL" />
-                            <img src="assets/logos/PostgreSQL-01.svg" class="py-1" alt="PostgreSQL" title="PostgreSQL" />
-                            <img src="assets/logos/MongoDB-01.svg" class="py-1" alt="MongoDB" title="MongoDB" />
-                            <img src="assets/logos/SQLite-01.svg" class="py-1" alt="SQLite" title="SQLite" />
-                            <img src="assets/logos/Mariadb-01.svg" class="" alt="MariaDB" title="MariaDB" />
+                            <img src="assets/logos/MySQL-01.svg" class="" alt="MySQL" title="MySQL" loading="lazy" />
+                            <img src="assets/logos/PostgreSQL-01.svg" class="py-1" alt="PostgreSQL" title="PostgreSQL" loading="lazy" />
+                            <img src="assets/logos/MongoDB-01.svg" class="py-1" alt="MongoDB" title="MongoDB" loading="lazy" />
+                            <img src="assets/logos/SQLite-01.svg" class="py-1" alt="SQLite" title="SQLite" loading="lazy" />
+                            <img src="assets/logos/Mariadb-01.svg" class="" alt="MariaDB" title="MariaDB" loading="lazy" />
 
                             <!-- Herramientas de Desarrollo y Otros -->
-                            <img src="assets/logos/Git-06.svg" class="py-1" alt="Git" title="Git" />
-                            <img src="assets/logos/Docker-01.svg" class="py-1" alt="Docker" title="Docker" />
-                            <img src="assets/logos/aws.svg" class="py-2" alt="AWS" title="AWS" />
-                            <img src="assets/logos/Google-flutter-logo.svg" class="py-2" alt="Flutter" title="Flutter" />
-                            <img src="assets/logos/Google-Cloud-Platform-02.svg" class="py-1" alt="Google Cloud Platform" title="Google Cloud Platform" />
-                            <img src="assets/logos/vmware-logo.png" class="py-1" alt="VMware" title="VMware" />
-                            <img src="assets/logos/Firebase-02.svg" class="py-1" alt="Firebase" title="Firebase" />
-                            <img src="assets/logos/ServiceNow-01.svg" class="py-2" alt="ServiceNow" title="ServiceNow" />
-                            <img src="assets/logos/Arduino-01.svg" class="py-1" alt="Arduino" title="Arduino" /> 
+                            <img src="assets/logos/Git-06.svg" class="py-1" alt="Git" title="Git" loading="lazy" />
+                            <img src="assets/logos/Docker-01.svg" class="py-1" alt="Docker" title="Docker" loading="lazy" />
+                            <img src="assets/logos/aws.svg" class="py-2" alt="AWS" title="AWS" loading="lazy" />
+                            <img src="assets/logos/Google-flutter-logo.svg" class="py-2" alt="Flutter" title="Flutter" loading="lazy" />
+                            <img src="assets/logos/Google-Cloud-Platform-02.svg" class="py-1" alt="Google Cloud Platform" title="Google Cloud Platform" loading="lazy" />
+                            <img src="assets/logos/vmware-logo.png" class="py-1" alt="VMware" title="VMware" loading="lazy" />
+                            <img src="assets/logos/Firebase-02.svg" class="py-1" alt="Firebase" title="Firebase" loading="lazy" />
+                            <img src="assets/logos/ServiceNow-01.svg" class="py-2" alt="ServiceNow" title="ServiceNow" loading="lazy" />
+                            <img src="assets/logos/Arduino-01.svg" class="py-1" alt="Arduino" title="Arduino" loading="lazy" /> 
                             
                             <!-- Herramientas -->
-                            <img src="assets/logos/Adobe-Photoshop-CC-01.svg" class="py-1" alt="Adobe Photoshop" title="Adobe Photoshop" />
-                            <img src="assets/logos/AI.svg" class="py-1" alt="Adobe Illustrator" title="Adobe Illustrator" />
-                            <img src="assets/logos/AIn.svg" class="py-1" alt="Adobe InDesign" title="Adobe InDesign" />
-                            <img src="assets/logos/Logo-Android-1024x640.svg" class="" alt="Android" title="Android" />
-                            <img src="assets/logos/iOS-Symbol.svg" class="" alt="iOS" title="iOS" />
+                            <img src="assets/logos/Adobe-Photoshop-CC-01.svg" class="py-1" alt="Adobe Photoshop" title="Adobe Photoshop" loading="lazy" />
+                            <img src="assets/logos/AI.svg" class="py-1" alt="Adobe Illustrator" title="Adobe Illustrator" loading="lazy" />
+                            <img src="assets/logos/AIn.svg" class="py-1" alt="Adobe InDesign" title="Adobe InDesign" loading="lazy" />
+                            <img src="assets/logos/Logo-Android-1024x640.svg" class="" alt="Android" title="Android" loading="lazy" />
+                            <img src="assets/logos/iOS-Symbol.svg" class="" alt="iOS" title="iOS" loading="lazy" />
                            
                             <!-- Añadir otros logos según sea necesario -->
                         </div>
@@ -487,7 +610,7 @@
         </div>
         
         <!-- Footer-->
-        <footer class="footer text-center">
+        <footer class="footer">
             <div class="container">
                 <div class="row">
                     
@@ -508,10 +631,6 @@
                 </div>
             </div>
         </footer>
-        <!-- Copyright Section-->
-        <div class="copyright py-4 text-center text-white">
-            <div class="container"><small>Copyright &copy; Roberto Velazquez 2024</small></div>
-        </div>
         <!-- Portfolio Modals-->
         <!-- Portfolio Modal 1-->
         <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" aria-labelledby="portfolioModal1" aria-hidden="true">
@@ -856,22 +975,6 @@
             </div>
         </div>
 
-        <!-- Modal de Selección de Idioma -->
-        <div class="modal fade" id="languageModal" data-bs-backdrop="static"  data-bs-keyboard="false"  tabindex="-1" aria-labelledby="languageModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-body">
-                <div class="d-grid gap-2">
-                    
-                    <button class="btn btn-secondary" data-bs-dismiss="modal">Español</button>
-                    <button class="btn btn-primary" onclick="changeLanguage('en')">English</button>
-                    <button class="btn btn-primary" onclick="changeLanguage('ar')">العربية</button>
-                </div>
-                </div>
-            </div>
-            </div>
-        </div>
-  
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
@@ -973,5 +1076,14 @@
 
 
         </script>
+        <!-- Language Selector -->
+        <div id="languageSelector" class="language-selector" role="navigation" aria-label="Selector de idioma"></div>
+        <!-- Copyright Section-->
+        <div class="copyright py-4 text-center text-white">
+            <div class="container">
+                <small>Copyright &copy; <span id="current-year"></span> Roberto Velazquez</small>
+                <div class="version">v1.0.0</div>
+            </div>
+        </div>
     </body>
 </html>

@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+Sitemap: https://rjvelazquez.github.io/sitemap.xml
+
+# No permitir acceso a archivos de configuración y directorios
+Disallow: /.git/
+Disallow: /.github/
+Disallow: /.vscode/
+Disallow: /node_modules/
+Disallow: /.firebase/
+Disallow: /firebase.json
+Disallow: /.firebaserc 
