@@ -1,15 +1,38 @@
 {
   "hosting": {
     "site": "rjvelazquez",
-    "public": "/",
+    "public": ".",
     "ignore": [
       "firebase.json",
       "**/.*",
-      "**/node_modules/**"
+      "**/node_modules/**",
+      "DumpStack.log.tmp",
+      "**/DumpStack.log.tmp",
+      "**/*.log",
+      "**/npm-debug.log*",
+      "**/yarn-debug.log*",
+      "**/yarn-error.log*",
+      "**/.git",
+      "**/.git/**",
+      "**/.github",
+      "**/.github/**",
+      "**/.vscode",
+      "**/.vscode/**",
+      "**/.idea",
+      "**/.idea/**"
     ],
     "headers": [
       {
-        "source": "**/*.@(jpg|jpeg|gif|png|svg|webp|css|js)",
+        "source": "**/*.@(js|css)",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "max-age=31536000"
+          }
+        ]
+      },
+      {
+        "source": "**/*.@(jpg|jpeg|gif|png|svg|webp)",
         "headers": [
           {
             "key": "Cache-Control",

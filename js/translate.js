@@ -1,17 +1,31 @@
-import { getCurrentLanguage, changeLanguage } from './languages.js';
+import { getCurrentLanguage } from './languages.js';
 import { translations as esTranslations } from './translations/es.js';
 import { translations as enTranslations } from './translations/en.js';
 import { translations as arTranslations } from './translations/ar.js';
 
-// Cache de traducciones
+// Cache para almacenar las traducciones
 const translationCache = new Map();
-let currentLanguage = getCurrentLanguage();
 
 const translations = {
     es: esTranslations,
     en: enTranslations,
     ar: arTranslations
 };
+
+// Función para encontrar una traducción
+function findTranslation(translations, key) {
+    const keys = key.split('.');
+    let current = translations;
+
+    for (const k of keys) {
+        if (current[k] === undefined) {
+            return null;
+        }
+        current = current[k];
+    }
+
+    return current;
+}
 
 // Función para obtener traducción con caché
 function getCachedTranslation(key, lang) {
@@ -20,57 +34,9 @@ function getCachedTranslation(key, lang) {
         return translationCache.get(cacheKey);
     }
     
-    const translation = findTranslation(key, lang);
+    const translation = findTranslation(translations[lang], key);
     translationCache.set(cacheKey, translation);
     return translation;
-}
-
-// Función para encontrar traducción con fallback
-function findTranslation(key, lang) {
-    try {
-        const keys = key.split('.');
-        let translation = translations[lang];
-        let fallbackTranslation = translations[lang].fallback ? translations[translations[lang].fallback] : null;
-        
-        for (const k of keys) {
-            if (!translation || !translation[k]) {
-                if (fallbackTranslation && fallbackTranslation[k]) {
-                    translation = fallbackTranslation[k];
-                } else {
-                    console.warn(`Translation key not found: ${key} for language ${lang}`);
-                    return key;
-                }
-            } else {
-                translation = translation[k];
-                if (fallbackTranslation) {
-                    fallbackTranslation = fallbackTranslation[k];
-                }
-            }
-        }
-        
-        return translation;
-    } catch (error) {
-        console.error(`Error finding translation for key ${key}:`, error);
-        return key;
-    }
-}
-
-export function translate(key, params = {}) {
-    try {
-        const translation = getCachedTranslation(key, currentLanguage);
-        
-        if (typeof translation !== 'string') {
-            console.warn(`Translation is not a string: ${key} for language ${currentLanguage}`);
-            return key;
-        }
-
-        return translation.replace(/\{(\w+)\}/g, (match, param) => {
-            return params[param] !== undefined ? params[param] : match;
-        });
-    } catch (error) {
-        console.error(`Error translating key ${key}:`, error);
-        return key;
-    }
 }
 
 // Función para limpiar la caché cuando cambia el idioma
@@ -78,9 +44,12 @@ function clearTranslationCache() {
     translationCache.clear();
 }
 
-export async function updateTranslations() {
+// Función para actualizar los textos
+async function updateTranslations(lang) {
+    // Limpiar caché
+    clearTranslationCache();
+
     const elements = document.querySelectorAll('[data-translate]');
-    const updatePromises = [];
     
     for (const element of elements) {
         try {
@@ -101,10 +70,13 @@ export async function updateTranslations() {
             await new Promise(resolve => setTimeout(resolve, 300));
             
             // Actualizar el contenido
-            if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-                element.placeholder = translate(key, params);
-            } else {
-                element.innerHTML = translate(key, params);
+            const translation = getCachedTranslation(key, lang);
+            if (translation) {
+                if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                    element.placeholder = translation;
+                } else {
+                    element.textContent = translation;
+                }
             }
             
             // Aplicar animación de entrada
@@ -121,35 +93,63 @@ export async function updateTranslations() {
     }
 }
 
-export function initTranslations() {
-    // Actualizar el idioma del documento
-    document.documentElement.lang = currentLanguage;
-    document.documentElement.dir = currentLanguage === 'ar' ? 'rtl' : 'ltr';
-    
-    // Limpiar caché y actualizar traducciones
-    clearTranslationCache();
-    updateTranslations();
-    
-    // Escuchar cambios de idioma
-    document.addEventListener('languageChanged', (event) => {
-        currentLanguage = event.detail.language;
-        initTranslations();
-    });
-    
-    // Observar cambios en el DOM para elementos nuevos
-    const observer = new MutationObserver((mutations) => {
-        mutations.forEach((mutation) => {
-            if (mutation.addedNodes.length) {
-                updateTranslations();
+// Función para actualizar la versión
+async function updateVersion() {
+    try {
+        console.log('Iniciando actualización de versión...');
+        const response = await fetch('/sw.js');
+        const swContent = await response.text();
+        console.log('Contenido del sw.js:', swContent);
+        
+        const versionMatch = swContent.match(/const VERSION = ['"]([^'"]+)['"]/);
+        console.log('Coincidencia de versión:', versionMatch);
+        
+        if (versionMatch && versionMatch[1]) {
+            const versionElement = document.querySelector('.version');
+            console.log('Elemento de versión encontrado:', versionElement);
+            
+            if (versionElement) {
+                const currentLang = getCurrentLanguage();
+                console.log('Idioma actual:', currentLang);
+                
+                const versionText = getCachedTranslation('status.version', currentLang);
+                console.log('Texto de versión traducido:', versionText);
+                
+                if (versionText) {
+                    const finalText = `${versionText} ${versionMatch[1]}`;
+                    console.log('Texto final a mostrar:', finalText);
+                    versionElement.textContent = finalText;
+                } else {
+                    console.warn('No se encontró la traducción para status.version');
+                }
+            } else {
+                console.warn('No se encontró el elemento .version');
             }
-        });
-    });
-    
-    observer.observe(document.body, {
-        childList: true,
-        subtree: true
+        } else {
+            console.warn('No se pudo encontrar la versión en sw.js');
+        }
+    } catch (error) {
+        console.error('Error al obtener la versión:', error);
+    }
+}
+
+// Función para inicializar las traducciones
+export async function initTranslations() {
+    const savedLang = getCurrentLanguage();
+    await updateTranslations(savedLang);
+    await updateVersion();
+
+    // Escuchar cambios de idioma
+    document.addEventListener('languageChanged', async (event) => {
+        await updateTranslations(event.detail.language);
+        await updateVersion();
     });
 }
 
-// Exportar la función de cambio de idioma
-export { changeLanguage }; 
+// Exportar todas las funciones necesarias
+export {
+    updateVersion,
+    updateTranslations,
+    getCachedTranslation,
+    findTranslation
+}; 
