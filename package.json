@@ -1,4 +1,8 @@
 {
+  "type": "module",
+  "scripts": {
+    "qa:data": "node scripts/check-data.mjs"
+  },
   "dependencies": {
     "firebase": "^10.7.2"
   }

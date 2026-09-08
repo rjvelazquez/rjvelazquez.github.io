@@ -19,24 +19,33 @@
       "**/.vscode",
       "**/.vscode/**",
       "**/.idea",
-      "**/.idea/**"
+      "**/.idea/**",
+      ".playwright-cli/**",
+      "output/**",
+      "scripts/**",
+      "AGENTS.md",
+      "tests/**",
+      "package.json",
+      "package-lock.json",
+      "indexm.html",
+      "icon-generator.html"
     ],
     "headers": [
       {
-        "source": "**/*.@(js|css)",
+        "source": "**/*.@(js|css|json)",
         "headers": [
           {
             "key": "Cache-Control",
-            "value": "max-age=31536000"
+            "value": "public, max-age=0, must-revalidate"
           }
         ]
       },
       {
-        "source": "**/*.@(jpg|jpeg|gif|png|svg|webp)",
+        "source": "**/*.@(jpg|jpeg|gif|png|svg|webp|avif)",
         "headers": [
           {
             "key": "Cache-Control",
-            "value": "max-age=31536000"
+            "value": "public, max-age=2592000"
           }
         ]
       },
@@ -46,7 +55,39 @@
           {
             "key": "Cache-Control",
             "value": "no-cache"
-          },
+          }
+        ]
+      },
+      {
+        "source": "/",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "no-cache"
+          }
+        ]
+      },
+      {
+        "source": "/projects/**",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "no-cache"
+          }
+        ]
+      },
+      {
+        "source": "/cv/**",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "no-cache"
+          }
+        ]
+      },
+      {
+        "source": "**",
+        "headers": [
           {
             "key": "X-Content-Type-Options",
             "value": "nosniff"
@@ -64,8 +105,21 @@
             "value": "strict-origin-when-cross-origin"
           },
           {
+            "key": "Permissions-Policy",
+            "value": "camera=(), microphone=(), geolocation=()"
+          },
+          {
             "key": "Content-Security-Policy",
             "value": "default-src 'self' https: data: 'unsafe-inline' 'unsafe-eval'; img-src 'self' https: data:; font-src 'self' https: data:;"
+          }
+        ]
+      },
+      {
+        "source": "/sw.js",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "no-cache"
           }
         ]
       }

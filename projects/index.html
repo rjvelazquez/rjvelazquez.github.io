@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Catálogo completo de proyectos y repositorios de Roberto Velazquez: productos en producción, código abierto, proyectos privados y casos históricos.">
+    <meta name="author" content="Roberto Velazquez">
+    <meta name="theme-color" content="#0b0c0f">
+    <meta name="color-scheme" content="dark">
+    <link rel="canonical" href="https://rjvelazquez.web.app/projects/">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" href="/assets/favicon.ico" sizes="any">
+    <link rel="stylesheet" href="/css/portfolio.css">
+    <title>Proyectos · Roberto Velazquez</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Saltar al contenido</a>
+
+    <header class="site-header">
+      <nav class="site-nav shell" aria-label="Navegación principal">
+        <a class="brand" href="/" aria-label="Inicio de Roberto Velazquez">
+          <span class="brand__mark" aria-hidden="true">RV</span>
+          <span class="brand__text">Roberto Velazquez</span>
+        </a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-navigation" data-nav-toggle>
+          <span>Menú</span>
+          <span class="nav-toggle__icon" aria-hidden="true"></span>
+        </button>
+        <div class="site-nav__links" id="primary-navigation" data-nav-links>
+          <a href="/">Inicio</a>
+          <a aria-current="page" href="/projects/">Proyectos</a>
+          <a href="/#experience">Experiencia</a>
+          <a href="/cv/">CV</a>
+          <a class="nav-cta" href="/#contact">Hablemos</a>
+        </div>
+      </nav>
+    </header>
+
+    <main id="main-content">
+      <header class="page-hero shell">
+        <p class="eyebrow">Catálogo profesional</p>
+        <h1>Cada producto cuenta una historia. Cada repositorio suma evidencia.</h1>
+        <p>Casos comerciales, proyectos privados, código abierto, laboratorios e iteraciones históricas organizados sin duplicar productos.</p>
+        <dl class="page-hero__stats">
+          <div><dt data-case-count>0</dt><dd>casos de producto</dd></div>
+          <div><dt data-repo-count>0</dt><dd>repositorios revisados</dd></div>
+          <div><dt data-production-count>0</dt><dd>producciones enlazadas</dd></div>
+        </dl>
+      </header>
+
+      <section class="catalog-toolbar" aria-label="Buscar y filtrar proyectos">
+        <div class="shell catalog-toolbar__inner">
+          <label class="search-field">
+            <span>Buscar proyectos o tecnologías</span>
+            <input type="search" placeholder="Ej. Flutter, Firebase, HealthTech…" autocomplete="off" data-project-search>
+          </label>
+          <div>
+            <p class="catalog-toolbar__label">Filtrar</p>
+            <div class="filter-list" data-project-filters></div>
+          </div>
+          <p class="catalog-toolbar__count" aria-live="polite" data-result-count></p>
+        </div>
+      </section>
+
+      <section class="section shell" aria-labelledby="case-heading">
+        <div class="section-heading section-heading--compact">
+          <div>
+            <p class="eyebrow">Casos de producto</p>
+            <h2 id="case-heading">Sistemas agrupados por problema y resultado.</h2>
+          </div>
+          <p>Las versiones del mismo producto se presentan juntas para mostrar evolución, no volumen artificial.</p>
+        </div>
+        <div class="project-grid" data-project-grid></div>
+      </section>
+
+      <section class="section section--surface" aria-labelledby="repository-heading">
+        <div class="shell">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Explorador de repositorios</p>
+              <h2 id="repository-heading">Repositorios, uno por uno.</h2>
+            </div>
+            <p>Los repositorios privados aparecen sin enlace y con una descripción segura. Los forks, vacíos y laboratorios están identificados explícitamente.</p>
+          </div>
+          <div class="repository-grid" data-repository-grid></div>
+          <div class="empty-state" data-empty-state hidden>
+            <h3>No encontramos coincidencias</h3>
+            <p>Prueba con otra tecnología, dominio o estado.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="contact-section">
+        <div class="shell contact-section__inner">
+          <div>
+            <p class="eyebrow">¿Buscas un caso específico?</p>
+            <h2>Puedo ampliar el proceso, el alcance y las decisiones técnicas.</h2>
+          </div>
+          <div class="contact-actions">
+            <a class="button button--light" href="mailto:rjvelazquez96@gmail.com">Contactar</a>
+            <a class="button button--outline-light" href="/cv/">Ver CV</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="shell site-footer__inner">
+        <div>
+          <a class="brand brand--footer" href="/">
+            <span class="brand__mark" aria-hidden="true">RV</span>
+            <span class="brand__text">Roberto Velazquez</span>
+          </a>
+          <p>Full-Stack & Mobile Developer · Product Builder</p>
+        </div>
+        <div class="footer-links">
+          <a href="https://github.com/rjvelazquez" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href="/cv/">CV</a>
+          <a href="/">Inicio</a>
+        </div>
+        <p class="site-footer__copy">© <span data-current-year></span> Roberto Velazquez</p>
+      </div>
+    </footer>
+
+    <script type="module" src="/js/projects.js"></script>
+  </body>
+</html>

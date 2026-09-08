@@ -1,198 +1,79 @@
-// Versión del Service Worker
-const VERSION = '1.0.30';
-const CACHE_NAME = 'rjvelazquez-cache-v${VERSION}';
-
-// Lista de recursos a cachear
-const urlsToCache = [
-    '/',
-    '/index.html',
-    '/manifest.json',
-    '/css/styles.css',
-    '/css/language-selector.css',
-    '/js/app.js',
-    '/js/translate.js',
-    '/js/language-manager.js',
-    '/js/translations/es.js',
-    '/js/translations/en.js',
-    '/js/translations/ar.js',
-    '/assets/favicon.ico',
-    '/assets/icons/icon-192x192.png',
-    '/assets/icons/icon-512x512.png',
-    '/assets/img/avatar.webp',
-    '/assets/img/portfolio/site-vig-mortgage-pr.svg',
-    '/assets/img/portfolio/vig-mortgage-app-iphone.svg',
-    '/assets/img/portfolio/smart-timing.svg',
-    '/assets/img/portfolio/iberocams.svg',
-    '/assets/img/portfolio/teamwarriorsmtb.svg',
-    '/assets/img/portfolio/hkdc.svg',
-    '/assets/img/portfolio/sgcc.svg',
-    '/assets/img/portfolio/time-system.svg',
-    '/assets/img/portfolio/residencia-santa-cruz.svg',
-    '/assets/img/portfolio/winnbags.svg',
-    '/assets/img/google-play-badge.png',
-    '/assets/img/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg',
-    '/assets/logos/php.svg',
-    '/assets/logos/JavaScript.svg',
-    '/assets/logos/HTML5.png',
-    '/assets/logos/CSS3.png',
-    '/assets/logos/Python.svg',
-    '/assets/logos/Ruby.svg',
-    '/assets/logos/Java.svg',
-    '/assets/logos/C-Sharp.svg',
-    '/assets/logos/React.svg',
-    '/assets/logos/Angular.svg',
-    '/assets/logos/Bootstrap.svg',
-    '/assets/logos/Node-JS.svg',
-    '/assets/logos/Rails-01.svg',
-    '/assets/logos/Laravel-04.svg',
-    '/assets/logos/MySQL-01.svg',
-    '/assets/logos/PostgreSQL-01.svg',
-    '/assets/logos/MongoDB-01.svg',
-    '/assets/logos/SQLite-01.svg',
-    '/assets/logos/Mariadb-01.svg',
-    '/assets/logos/Git-06.svg',
-    '/assets/logos/Docker-01.svg',
-    '/assets/logos/aws.svg',
-    '/assets/logos/Google-flutter-logo.svg',
-    '/assets/logos/Google-Cloud-Platform-02.svg',
-    '/assets/logos/vmware-logo.png',
-    '/assets/logos/Firebase-02.svg',
-    '/assets/logos/ServiceNow-01.svg',
-    '/assets/logos/Arduino-01.svg',
-    '/assets/logos/Adobe-Photoshop-CC-01.svg',
-    '/assets/logos/AI.svg',
-    '/assets/logos/AIn.svg',
-    '/assets/logos/Logo-Android-1024x640.svg',
-    '/assets/logos/iOS-Symbol.svg',
-    '/img/flags/es.svg',
-    '/img/flags/en.svg',
-    '/img/flags/ar.svg'
+const VERSION = '2.0.3';
+const CACHE_NAME = `rv-portfolio-${VERSION}`;
+const PRECACHE = [
+  '/',
+  '/index.html',
+  '/projects/',
+  '/projects/index.html',
+  '/cv/',
+  '/cv/index.html',
+  '/manifest.json',
+  '/css/portfolio.css',
+  '/css/print.css',
+  '/data/portfolio-data.js',
+  '/data/additional-cases.js',
+  '/data/capture-audit.js',
+  '/js/site.js',
+  '/js/home.js',
+  '/js/projects.js',
+  '/js/cv.js',
+  '/assets/favicon.ico',
+  '/assets/icons/icon-192x192.png',
+  '/assets/icons/icon-512x512.png',
+  '/assets/img/perfil-2026.jpeg'
 ];
 
-// Función para limpiar caches antiguas
-const clearOldCaches = async () => {
+self.addEventListener('install', (event) => {
+  event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(PRECACHE)).then(() => self.skipWaiting()));
+});
+
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    caches
+      .keys()
+      .then((names) => Promise.all(names.filter((name) => name.startsWith('rv-portfolio-') && name !== CACHE_NAME).map((name) => caches.delete(name))))
+      .then(() => self.clients.claim())
+  );
+});
+
+async function networkFirst(request) {
+  const cache = await caches.open(CACHE_NAME);
   try {
-    const cacheNames = await caches.keys();
-    console.log('[Service Worker] Caches encontradas:', cacheNames);
-    
-    const oldCaches = cacheNames.filter(cacheName => {
-      return cacheName.startsWith('rjvelazquez-cache-v') && cacheName !== CACHE_NAME;
-    });
-    
-    console.log('[Service Worker] Caches a eliminar:', oldCaches);
-    
-    return Promise.all(oldCaches.map(cacheName => {
-      console.log(`[Service Worker] Eliminando cache: ${cacheName}`);
-      return caches.delete(cacheName);
-    }));
-  } catch (error) {
-    console.error('[Service Worker] Error al limpiar caches:', error);
-    return Promise.resolve();
+    const response = await fetch(request);
+    if (response.ok) await cache.put(request, response.clone());
+    return response;
+  } catch {
+    return (await cache.match(request)) || (await cache.match('/index.html'));
   }
-};
-
-// Función para cachear un recurso individual
-async function cacheResource(cache, url) {
-    try {
-        console.log(`[Service Worker] Intentando cachear: ${url}`);
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        await cache.put(url, response);
-        console.log(`[Service Worker] Recurso cacheado exitosamente: ${url}`);
-    } catch (error) {
-        console.error(`[Service Worker] Error cacheando ${url}:`, error);
-    }
 }
 
-// Instalación del Service Worker
-self.addEventListener('install', event => {
-    console.log('[Service Worker] Instalando...');
-    event.waitUntil(
-        caches.open(CACHE_NAME)
-            .then(cache => {
-                console.log('[Service Worker] Cache abierto');
-                return Promise.all(
-                    urlsToCache.map(url => cacheResource(cache, url))
-                );
-            })
-            .then(() => {
-                console.log('[Service Worker] Instalación completada');
-                return self.skipWaiting();
-            })
-            .catch(error => {
-                console.error('[Service Worker] Error durante la instalación:', error);
-            })
-    );
-});
+async function staleWhileRevalidate(request) {
+  const cache = await caches.open(CACHE_NAME);
+  const cached = await cache.match(request);
+  const update = fetch(request)
+    .then((response) => {
+      if (response.ok) cache.put(request, response.clone());
+      return response;
+    })
+    .catch(() => undefined);
 
-// Activación del Service Worker
-self.addEventListener('activate', event => {
-    console.log('[Service Worker] Activando...');
-    event.waitUntil(
-        caches.keys().then(cacheNames => {
-            return Promise.all(
-                cacheNames.map(cacheName => {
-                    if (cacheName !== CACHE_NAME) {
-                        console.log('[Service Worker] Eliminando cache antigua:', cacheName);
-                        return caches.delete(cacheName);
-                    }
-                })
-            );
-        }).then(() => {
-            console.log('[Service Worker] Activación completada');
-            return self.clients.claim();
-        })
-    );
-});
-
-// Estrategia Cache First
-async function cacheFirst(request) {
-    try {
-        const cache = await caches.open(CACHE_NAME);
-        const cachedResponse = await cache.match(request);
-        
-        if (cachedResponse) {
-            console.log('[Service Worker] Respuesta encontrada en cache:', request.url);
-            return cachedResponse;
-        }
-        
-        console.log('[Service Worker] Intentando fetch:', request.url);
-        const networkResponse = await fetch(request);
-        
-        if (networkResponse.ok) {
-            console.log('[Service Worker] Guardando en cache:', request.url);
-            cache.put(request, networkResponse.clone());
-        }
-        
-        return networkResponse;
-    } catch (error) {
-        console.error('[Service Worker] Fetch fallido:', request.url, error);
-        throw error;
-    }
+  return cached || update;
 }
 
-// Interceptar peticiones
-self.addEventListener('fetch', event => {
-    if (event.request.method === 'GET') {
-        event.respondWith(cacheFirst(event.request));
-    }
-});
+self.addEventListener('fetch', (event) => {
+  const { request } = event;
+  const url = new URL(request.url);
 
-// Manejo de errores
-self.addEventListener('error', event => {
-  console.error('[Service Worker] Error:', event.error);
-});
+  if (request.method !== 'GET' || url.origin !== self.location.origin) return;
 
-// Manejo de rechazos de promesas no manejados
-self.addEventListener('unhandledrejection', event => {
-  console.error('[Service Worker] Promesa rechazada no manejada:', event.reason);
-});
-
-// Manejo de mensajes
-self.addEventListener('message', event => {
-  if (event.data && event.data.type === 'SKIP_WAITING') {
-    self.skipWaiting();
+  if (request.mode === 'navigate') {
+    event.respondWith(networkFirst(request));
+    return;
   }
-}); 
+
+  event.respondWith(staleWhileRevalidate(request));
+});
+
+self.addEventListener('message', (event) => {
+  if (event.data?.type === 'SKIP_WAITING') self.skipWaiting();
+});

@@ -1,0 +1,181 @@
+@page {
+  size: A4;
+  margin: 11mm 12mm;
+}
+
+:root {
+  color-scheme: light;
+}
+
+html,
+body {
+  background: white !important;
+  color: #111 !important;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 9pt;
+  line-height: 1.35;
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+
+.cv-screen-only,
+.skip-link {
+  display: none !important;
+}
+
+.cv-document {
+  inline-size: auto !important;
+  margin: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: white !important;
+  box-shadow: none !important;
+  color: #111 !important;
+  padding: 0 !important;
+}
+
+.cv-header {
+  grid-template-columns: 1fr 56mm;
+  gap: 8mm;
+  border-block-end: 2pt solid #111;
+  padding-block-end: 4mm;
+}
+
+.cv-header h1 {
+  margin-block-start: 1mm;
+  color: #111;
+  font-size: 28pt;
+  line-height: 1;
+}
+
+.cv-header__eyebrow {
+  color: #415a6b;
+  font-size: 7pt;
+}
+
+.cv-header__title {
+  margin-block-start: 2mm;
+  color: #333;
+  font-size: 9pt;
+}
+
+.cv-contact {
+  color: #333;
+  font-size: 7pt;
+}
+
+.cv-contact a,
+.cv-document a {
+  color: #1c3548;
+  text-decoration: none;
+}
+
+.cv-summary {
+  grid-template-columns: 27mm 1fr;
+  gap: 6mm;
+  border-block-end: 0.5pt solid #bbb;
+  padding-block: 4mm;
+}
+
+.cv-summary h2,
+.cv-section > h2 {
+  color: #111;
+  font-size: 7pt;
+  letter-spacing: 0.12em;
+}
+
+.cv-summary p {
+  color: #222;
+  font-size: 8pt;
+  line-height: 1.4;
+}
+
+.cv-layout {
+  grid-template-columns: minmax(0, 1.55fr) 52mm;
+  gap: 7mm;
+  padding-block-start: 5mm;
+}
+
+.cv-sidebar {
+  border-inline-start: 0.5pt solid #bbb;
+  padding-inline-start: 5mm;
+}
+
+.cv-section + .cv-section {
+  margin-block-start: 5mm;
+}
+
+.cv-section > h2 {
+  border-block-end: 0.5pt solid #aaa;
+  padding-block-end: 1.5mm;
+}
+
+.cv-entry,
+.cv-project,
+.cv-skill-group,
+.cv-education,
+.cv-section {
+  break-inside: avoid;
+}
+
+.cv-entry {
+  padding-block: 2.5mm;
+}
+
+.cv-entry + .cv-entry,
+.cv-project,
+.cv-skill-group + .cv-skill-group,
+.cv-education + .cv-education {
+  border-color: #ddd;
+}
+
+.cv-entry h3,
+.cv-project h3,
+.cv-skill-group h3,
+.cv-education h3 {
+  color: #111;
+  font-size: 8pt;
+}
+
+.cv-entry__role,
+.cv-entry__period {
+  color: #3d4a53;
+  font-size: 6.6pt;
+}
+
+.cv-entry__summary,
+.cv-project p,
+.cv-skill-group p,
+.cv-education p,
+.cv-section > p {
+  margin-block-start: 1mm;
+  color: #333;
+  font-size: 6.8pt;
+  line-height: 1.36;
+}
+
+.cv-project-grid {
+  grid-template-columns: 1fr 1fr;
+  gap: 0 4mm;
+}
+
+.cv-project {
+  padding-block: 2.2mm;
+}
+
+.cv-project__tech {
+  color: #284f68 !important;
+}
+
+.cv-skill-group,
+.cv-education {
+  padding-block: 2mm;
+}
+
+.cv-footer {
+  border-block-start: 1.5pt solid #111;
+  margin-block-start: 4mm;
+  padding-block-start: 2mm;
+  color: #444;
+  font-size: 6.3pt;
+}

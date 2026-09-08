@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="CV web de Roberto Velazquez, Full-Stack & Mobile Developer con experiencia en productos, automatización, cloud y liderazgo técnico.">
+    <meta name="author" content="Roberto Velazquez">
+    <meta name="theme-color" content="#0b0c0f">
+    <link rel="canonical" href="https://rjvelazquez.web.app/cv/">
+    <link rel="icon" href="/assets/favicon.ico" sizes="any">
+    <link rel="stylesheet" href="/css/portfolio.css">
+    <link rel="stylesheet" href="/css/print.css" media="print">
+    <title>CV · Roberto Velazquez</title>
+  </head>
+  <body class="cv-page">
+    <a class="skip-link" href="#cv-document">Saltar al CV</a>
+
+    <header class="site-header cv-screen-only">
+      <nav class="site-nav shell" aria-label="Navegación principal">
+        <a class="brand" href="/" aria-label="Inicio de Roberto Velazquez">
+          <span class="brand__mark" aria-hidden="true">RV</span>
+          <span class="brand__text">Roberto Velazquez</span>
+        </a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-navigation" data-nav-toggle>
+          <span>Menú</span>
+          <span class="nav-toggle__icon" aria-hidden="true"></span>
+        </button>
+        <div class="site-nav__links" id="primary-navigation" data-nav-links>
+          <a href="/">Inicio</a>
+          <a href="/projects/">Proyectos</a>
+          <a href="/#experience">Experiencia</a>
+          <a aria-current="page" href="/cv/">CV</a>
+          <a class="nav-cta" href="/#contact">Hablemos</a>
+        </div>
+      </nav>
+    </header>
+
+    <div class="cv-toolbar shell cv-screen-only">
+      <div>
+        <p class="eyebrow">CV web</p>
+        <p>Optimizado para lectura en pantalla y exportación A4.</p>
+      </div>
+      <button class="button button--primary" type="button" data-print-cv>Imprimir / Guardar PDF</button>
+    </div>
+
+    <main class="cv-document" id="cv-document">
+      <header class="cv-header">
+        <div>
+          <p class="cv-header__eyebrow">Full-Stack · Mobile · Automation</p>
+          <h1>Roberto Velazquez</h1>
+          <p class="cv-header__title">Full-Stack & Mobile Developer · Product Builder · Technical Leadership</p>
+        </div>
+        <ul class="cv-contact" data-cv-contact aria-label="Contacto"></ul>
+      </header>
+
+      <section class="cv-summary" aria-labelledby="summary-title">
+        <h2 id="summary-title">Perfil</h2>
+        <p>Desarrollador Full Stack y líder técnico con experiencia en productos web, aplicaciones móviles, sistemas administrativos, automatización e integraciones. He trabajado en movilidad, HealthTech, FinTech, mortgage, SportTech, e-commerce, educación y entretenimiento, combinando producto, desarrollo, cloud y soporte operativo.</p>
+      </section>
+
+      <div class="cv-layout">
+        <div class="cv-main">
+          <section class="cv-section" aria-labelledby="experience-title">
+            <h2 id="experience-title">Experiencia</h2>
+            <div data-cv-experience></div>
+          </section>
+
+          <section class="cv-section" aria-labelledby="projects-title">
+            <h2 id="projects-title">Proyectos seleccionados</h2>
+            <div class="cv-project-grid" data-cv-projects></div>
+          </section>
+        </div>
+
+        <aside class="cv-sidebar">
+          <section class="cv-section" aria-labelledby="skills-title">
+            <h2 id="skills-title">Habilidades</h2>
+            <div data-cv-skills></div>
+          </section>
+
+          <section class="cv-section" aria-labelledby="education-title">
+            <h2 id="education-title">Educación</h2>
+            <div data-cv-education></div>
+          </section>
+
+          <section class="cv-section" aria-labelledby="languages-title">
+            <h2 id="languages-title">Idiomas</h2>
+            <p data-cv-languages></p>
+          </section>
+
+          <section class="cv-section" aria-labelledby="courses-title">
+            <h2 id="courses-title">Cursos</h2>
+            <p data-cv-courses></p>
+          </section>
+        </aside>
+      </div>
+
+      <footer class="cv-footer">
+        <p>Portafolio completo: <a href="https://rjvelazquez.web.app/projects/">rjvelazquez.web.app/projects</a></p>
+        <p>Actualizado en 2026</p>
+      </footer>
+    </main>
+
+    <footer class="site-footer cv-screen-only">
+      <div class="shell site-footer__inner">
+        <p>© <span data-current-year></span> Roberto Velazquez</p>
+        <div class="footer-links"><a href="/">Inicio</a><a href="/projects/">Proyectos</a></div>
+      </div>
+    </footer>
+
+    <script type="module" src="/js/cv.js"></script>
+  </body>
+</html>
