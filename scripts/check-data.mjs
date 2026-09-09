@@ -1,5 +1,6 @@
 import { cases, repositories } from '../data/portfolio-data.js';
 import { additionalCases } from '../data/additional-cases.js';
+import { localCaptures } from '../data/local-captures.js';
 import { captureAudit } from '../data/capture-audit.js';
 import { existsSync } from 'node:fs';
 
@@ -42,6 +43,11 @@ for (const capture of captureAudit.filter((entry) => entry.verdict === 'valid'))
   if (!project || project.image !== capture.image || project.captureVerifiedAt !== capture.verifiedAt) {
     errors.push(`Captura desactualizada en el catálogo: ${capture.id}.`);
   }
+}
+
+for (const capture of localCaptures) {
+  const project = cases.find((entry) => entry.id === capture.id);
+  if (!project || project.image !== capture.image || project.imageType !== capture.imageType) errors.push(`Captura local inconsistente: ${capture.id}.`);
 }
 
 cases.forEach((project) => {

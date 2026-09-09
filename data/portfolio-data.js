@@ -1,4 +1,5 @@
 import { additionalCases } from './additional-cases.js';
+import { localCaptures } from './local-captures.js';
 import { captureAudit } from './capture-audit.js';
 
 export const profile = {
@@ -13,7 +14,7 @@ export const profile = {
   whatsapp: '584129354940',
   linkedin: 'https://www.linkedin.com/in/roberto-velazquez-55a718124/',
   github: 'https://github.com/rjvelazquez',
-  agency: 'https://pixeocreativestudio.web.app/',
+  agency: 'https://pixeocreativestudio.com/',
   portfolio: 'https://rjvelazquez.web.app/',
   summary:
     'Desarrollo productos web y móviles que conectan operación, negocio y tecnología. Mi experiencia combina interfaces, APIs, datos, cloud, automatización, soporte técnico y liderazgo de proyectos para clientes en Venezuela, Puerto Rico y otros mercados.',
@@ -653,6 +654,7 @@ const repositoryGroups = [
 ];
 
 const repositoryCaseIds = {
+  TestLaravelAngular: 'course-management-lab',
   'Hapkido-VAR-System': 'hapkido-var-system', 'Sentinel-AI': 'sentinel-ai',
   'pixeo-leadengine': 'pixeoflow-ai', Pixiebot: 'pixeoflow-ai',
   'PCS-Admin': 'pcs-admin',
@@ -744,6 +746,9 @@ export const cases = [...baselineCases, ...additionalCases].map((project) => {
       ? 'Portada ilustrativa · sin captura pública verificada'
       : 'Captura histórica · pendiente de actualización';
   }
+  const localCapture = localCaptures.find((entry) => entry.id === project.id);
+  if (localCapture) Object.assign(result, localCapture);
+  if (project.id === 'pixeo') result.url = 'https://pixeocreativestudio.com/';
   return result;
 }).sort((a, b) => {
   const priority = ['vamonos', 'hapkido-score-system', 'fast-sport-timing'];

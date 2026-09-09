@@ -1,4 +1,4 @@
-// Verificación de interfaces públicas; los accesos restringidos no son capturas de producto.
+// Verificacion de interfaces publicas; accesos restringidos no son capturas de producto.
 export const captureAudit = [
   {
     "id": "vamonos",
@@ -68,12 +68,12 @@ export const captureAudit = [
   },
   {
     "id": "pixeo",
-    "requestedUrl": "https://pixeocreativestudio.web.app/",
-    "finalUrl": "https://pixeocreativestudio.web.app/",
+    "requestedUrl": "https://pixeocreativestudio.com/",
+    "finalUrl": "https://pixeocreativestudio.com/",
     "status": "captured",
     "title": "Pixeo Creative Studio — Buenas ideas. Grandes posibilidades.",
     "image": "/assets/img/projects/2026-09-08/pixeo.png",
-    "verifiedAt": "2026-09-08T14:16:48.601085+00:00",
+    "verifiedAt": "2026-09-09T03:57:17.679Z",
     "verdict": "valid",
     "reason": "Interfaz pública desplegada con 50 casos y propuesta de IA; captura verificada visualmente."
   },

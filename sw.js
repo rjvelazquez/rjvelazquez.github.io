@@ -1,4 +1,4 @@
-const VERSION = '2.0.3';
+const VERSION = '2.0.4';
 const CACHE_NAME = `rv-portfolio-${VERSION}`;
 const PRECACHE = [
   '/',
@@ -13,6 +13,7 @@ const PRECACHE = [
   '/data/portfolio-data.js',
   '/data/additional-cases.js',
   '/data/capture-audit.js',
+  '/data/local-captures.js',
   '/js/site.js',
   '/js/home.js',
   '/js/projects.js',

@@ -1,6 +1,97 @@
 // Casos adicionales identificados en los directorios de trabajo el 2026-09-07.
 // Un prototipo o integración no requiere cliente público para tener una ficha.
 export const additionalCases = [
+{
+  "id": "course-management-lab",
+  "name": "Gestión académica · Angular / Laravel",
+  "kicker": "Educación · Laboratorio full stack",
+  "summary": "Aplicación de gestión de cursos, estudiantes e inscripciones, con acceso de administradores y una API para consultar y mantener los registros.",
+  "role": "Desarrollo de un proyecto técnico de gestión académica",
+  "stack": [
+    "Angular",
+    "TypeScript",
+    "Laravel",
+    "PHP",
+    "REST API"
+  ],
+  "categories": [
+    "web",
+    "backend",
+    "prototype"
+  ],
+  "visual": "desktop",
+  "url": "",
+  "status": "Prototipo local",
+  "featured": false
+},
+{
+  "id": "clover-checkout-lab",
+  "name": "Clover · Laboratorio de checkout",
+  "kicker": "Pagos · Herramienta de integración",
+  "summary": "Herramienta para preparar sesiones de checkout, configurar productos e impuestos y probar la integración con Clover en un entorno de pruebas.",
+  "role": "Desarrollo de interfaz y pruebas de integración de pagos",
+  "stack": [
+    "Node.js",
+    "JavaScript",
+    "Bootstrap",
+    "Clover API"
+  ],
+  "categories": [
+    "web",
+    "backend",
+    "fintech",
+    "prototype"
+  ],
+  "visual": "desktop",
+  "url": "",
+  "status": "Prototipo local",
+  "featured": false
+},
+{
+  "id": "pixeo-whatsapp-assistant",
+  "name": "Pixeo · Asistente WhatsApp",
+  "kicker": "IA · Atención y servicios",
+  "summary": "Prototipo de asistente conversacional con menús de servicios de Pixeo, consultas asistidas por IA y procesamiento de notas de voz.",
+  "role": "Adaptación de flujos conversacionales e integración de IA sobre Bot WhatsApp",
+  "stack": [
+    "Node.js",
+    "Bot WhatsApp",
+    "Baileys",
+    "OpenAI",
+    "Whisper"
+  ],
+  "categories": [
+    "ai",
+    "automation",
+    "prototype"
+  ],
+  "visual": "ai",
+  "url": "",
+  "status": "Prototipo local",
+  "featured": false
+},
+{
+  "id": "naycarh-imports",
+  "name": "Naycarh Imports",
+  "kicker": "Comercio · Tienda WordPress",
+  "summary": "Proyecto de tienda de importaciones con identidad de Naycarh Imports, catálogo y recursos de comercio electrónico sobre WordPress y WooCommerce.",
+  "role": "Configuración y personalización de una tienda basada en Astra y WooCommerce",
+  "stack": [
+    "WordPress",
+    "WooCommerce",
+    "Astra",
+    "PHP"
+  ],
+  "categories": [
+    "web",
+    "commerce",
+    "prototype"
+  ],
+  "visual": "commerce",
+  "url": "",
+  "status": "Prototipo local",
+  "featured": false
+},
   {
     id: 'hapkido-var-system', name: 'Hapkido VAR System', kicker: 'SportTech · Revisión de combate',
     summary: 'Prototipo de revisión arbitral con vistas de cámaras, monitorización en directo y una línea de tiempo para revisar secuencias del combate.',
