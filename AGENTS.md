@@ -6,3 +6,5 @@
 - Firebase Hosting personal usa el proyecto `rjvelazquez-572e6` y el sitio `rjvelazquez`; la agencia usa `pixeocreativestudio-admin`/`pixeocreativestudio` y Spark sin facturación.
 
 - Los grupos del inventario pueden contener varios productos: enlaza cada repositorio al caso comprobado o conserva `productId: null`; no fuerces un caso por grupo.
+
+- VIG: publicar solo webs publicas; no incluir nombres, direcciones ni fichas de repositorios o proyectos privados de VIG.

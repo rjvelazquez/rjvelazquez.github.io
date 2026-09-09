@@ -5,6 +5,8 @@ import { captureAudit } from '../data/capture-audit.js';
 import { existsSync } from 'node:fs';
 
 const errors = [];
+if (repositories.some((repo) => repo.groupId === 'vig-mortgage' || /vig|prequalify/i.test(repo.name))) errors.push('VIG no debe exponer repositorios.');
+if (cases.some((project) => project.id.startsWith('vig-') && !project.url)) errors.push('VIG solo permite webs publicas.');
 const names = repositories.map((repository) => repository.name);
 const duplicateNames = names.filter((name, index) => names.indexOf(name) !== index);
 const caseIds = cases.map((project) => project.id);

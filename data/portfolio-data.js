@@ -556,14 +556,6 @@ const repositoryGroups = [
     repos: ['valepintos-website', 'valepintosapp', 'instagram-backend']
   },
   {
-    id: 'vig-mortgage',
-    name: 'VIG Mortgage',
-    summary: 'Web, modernización, pre-calificación, cotización, documentos, PDF y firma electrónica.',
-    tech: ['Joomla', 'Next.js', 'PHP', 'Node.js', 'AWS', 'SignNow'],
-    visibility: 'private',
-    repos: ['vigmortgagedocs', 'Cotizador-VIG', 'vigpr-2.0', 'prequalify', 'SignNowNodeSDKVIG', 'landing-vig-old', 'vigpr-2026-nextjs', { name: 'prequalify_dev', status: 'Vacío' }]
-  },
-  {
     id: 'hapkido',
     name: 'Hapkido y sistemas de competencia',
     summary: 'Gestión de asociación, marcadores, torneos, revisión de combate y corrección de postura con visión computacional.',

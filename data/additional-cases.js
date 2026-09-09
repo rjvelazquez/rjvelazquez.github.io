@@ -269,14 +269,6 @@ export const additionalCases = [
     categories: ['desktop', 'automation', 'open-source'], visual: 'desktop',
   },
   {
-    id: 'vig-salesforce', name: 'VIG · Salesforce Experience', kicker: 'Salesforce · Portal hipotecario',
-    summary: 'Superficie del ecosistema VIG en Salesforce con componentes de experiencia web, información hipotecaria y flujos documentales.',
-    role: 'Desarrollo e integración de componentes Salesforce',
-    stack: ['Salesforce', 'Lightning Web Components', 'Aura', 'JavaScript', 'Salesforce DX'],
-    url: '', status: 'Proyecto privado', featured: false,
-    categories: ['web', 'backend', 'fintech', 'private'], visual: 'institutional',
-  },
-  {
     id: 'hrglobalandco', name: 'HR Global & Co', kicker: 'Servicios profesionales · Web',
     summary: 'Sitio corporativo con presentación de servicios, metodología, localizaciones, contenido multilingüe y contacto.',
     role: 'Diseño y desarrollo de presencia web',

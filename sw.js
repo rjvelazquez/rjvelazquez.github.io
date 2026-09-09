@@ -1,4 +1,4 @@
-const VERSION = '2.0.4';
+const VERSION = '2.0.5';
 const CACHE_NAME = `rv-portfolio-${VERSION}`;
 const PRECACHE = [
   '/',
